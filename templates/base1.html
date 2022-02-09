@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %}Upload{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+{% load static %}
+<style>
+  body{
+    background-image: url('{% static "image/bg12.jpg" %}');
+  }
+  .rowstylered{
+    border-left:3px solid red;
+
+  }
+  .rowstylegreen{
+    border-left:3px solid green;
+
+  }
+  .rowstyleamber{
+    border-left:3px solid rgb(230, 226, 23);
+
+  }
+  #myInput {
+      box-sizing: border-box;
+     
+      background-position: 14px 12px;
+      background-repeat: no-repeat;
+      font-size: 16px;
+      padding: 14px 20px 12px 45px;
+     
+      border-bottom: 1px solid #ddd;
+    }
+   
+   
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 230px;
+      overflow-y: scroll;
+      height:180px;
+      border: 1px solid #ddd;
+      z-index: 1;
+    }
+   
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+   
+    .dropdown-content a:hover {background-color: skyblue;}
+::-webkit-scrollbar {
+        width: 5px;
+      }
+      #exampleModal .modal2 {
+  display: none;
+}
+  
+</style>
+<body>
+
+<nav class="navbar navbar-expand-sm opacity-100 shadow p-2  rounded"style="background:#FFA400 ">
+  <div class="container-fluid">
+    <a class="navbar-brand text-dark font-weight-bold" href="#">ResumeParser</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-dark font-weight-bold" href="{% url 'database' %}">Database</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{% url 'upload' %}">Upload CV</a>
+        </li>
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle text-dark" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown01">
+            <li><a class="dropdown-item" href="{% url 'editprofile' %}">Edit/View Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'index' %}">Logout</a></li>
+           
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{% url 'index' %}">Logout</a>
+        </li>
+
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{% block content %}
+
+<script>
+  function upload(){
+      const input = document.getElementById('inputGroupFile04');
+      var count = 0;
+// Retrieve FileList object
+      const files = input.files;
+      //console.log(files)
+//accept="file_extension|.pdf|.doc|.jpg|.png|.html"
+// Loop through files
+
+  for (let i = 0; i < files.length; i++) {
+    let file = files.item(i);
+    var folder_name = file.webkitRelativePath;
+    var folder = folder_name.toString();
+    var folder_name1= folder.slice(0, folder.indexOf('/'))
+    //console.log(folder_name1)
+    //console.log(file.name);
+    extension = file.name.toString().split('.').pop();
+    //console.log(extension);
+  //const arr = Array.from(files);
+    expected_extensions = ["pdf","doc","html","txt","docx","docs","txt","jpg"]
+  
+    if(expected_extensions.includes(extension))
+    {
+      
+    }
+    else
+    {   //var a
+      //var fs = require('fs');
+      //fs.rename(file.name, 'ignore');
+     
+      //c.push(b)
+      //var parent = document.getElementById("newparent_row1");
+      
+
+      var parent = document.getElementById("newparent_row1");
+       var child = parent.lastElementChild;
+       while(child){
+         parent.removeChild(child)
+         child=parent.lastElementChild
+       }
+        if(count==0){
+          
+         //row1.innerHTML = "Output("+(count-1)+")";
+
+         var statement = document.createElement('p');
+         statement .setAttribute('class','pb-3 mb-0 small lh-sm border-bottom')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         //row.id = "div"+i
+         //row.classList.add('rowstylered')
+         //console.log(row.id)
+         //row.classList.add('rowstylered')
+         document.getElementById("newparent_row").appendChild(statement);
+         statement.innerHTML = ("Error uploading the above files from the folder"+" "+"("+folder_name1+")"+".");
+        }
+        
+         var row = document.createElement('div');
+         row .setAttribute('class','pb-3 mb-0 small lh-sm border-bottom')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         //row.id = "div"+i
+         //row.classList.add('rowstylered')
+         //console.log(row.id)
+         row.classList.add('rowstylered')
+         document.getElementById("newparent_row").appendChild(row);
+         row.innerHTML = (file.name +" " +":"+" "+folder_name1+"  "+"("+(i+1)+")");
+         count++;
+         //var row1 = document.createElement('div');
+         //row .setAttribute('class','border-bottom pb-2 mb-0')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         //row.id = "div"+i
+         //row.classList.add('rowstylered')
+         //console.log(row.id)
+         //row.classList.add('rowstylered')
+         //document.getElementById("error").appendChild(row1);
+         //row1.innerHTML = "Output("+(count-1)+")";
+         //myRenamedFile = new File([file], "ignore."+extension);
+      //console.log(myRenamedFile.name,i)
+      //arr.forEach(file => arr.push(file.name));
+      
+      
+  }
+
+  
+  
+}
+document.getElementById("counter").innerHTML = "Output("+(count)+")" ;
+        //var row1 = document.createElement('div');
+         //row1.setAttribute('class','border-bottom pb-2 mb-0')
+         
+  }
+
+  
+</script>
+
+<main class="container">
+  <form action="{% url 'resume' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+   <div class="d-flex align-items-center p-3 my-3 text-white bg-orange rounded shadow-sm opacity-75" style="background:#09009B ">
+    
+     <div class="lh-1">
+       <h1 class="h6 mb-0 text-white lh-1">Upload CV/Resume</h1><br>
+       <input type="file" webkitdirectory mozdirectory name = "file"class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"><br>
+       <button class="btn btn-outline-light fg-light" type="submit" id="inputGroupFileAddon04"onclick="upload()">Upload</button>
+     </div>
+   </div>
+  
+  
+  
+   <div class="my-3 p-3 bg-body rounded shadow-sm opacity-75"id='newparent_row'>
+     <h6 class="border-bottom pb-2 mb-0" id = "counter" >Output(0)</h6>
+     <div class="d-flex text-muted pt-3" id = "newparent_row1">
+    
+  
+       <p class="pb-3 mb-0 small lh-sm border-bottom" >
+         <strong class="d-block text-gray-dark"id = "error" >No problem detected in upload</strong>
+        
+       </p>
+     </div>
+    
+  
+  
+      
+    
+   </div>
+  
+ </form>
+ </main>
+ 
+{% endblock %}
+
+
+</body>
+{{ skills|json_script:"skillset" }}
+<script>
+  const box = document.querySelector("#myDropdown")
+ 
+ document.addEventListener("click", function(event) {
+  
+  
+   if (event.target.closest(".modal-body")) {
+    
+    
+      if (box.style.display == "block" && document.activeElement!=document.querySelector("#myInput")) {
+      // console.log('inside ')
+          box.style.display = "none"; }
+   }
+  
+  
+ })
+  
+  
+   function validate(){
+     var filter_dictionary=new Map()
+    
+    
+    
+     var filter=[]
+     var s=document.getElementById('myInput').value;
+     var s1=document.getElementById('lang').value;
+     var s2=document.getElementById('loc').value;
+    
+    
+     filter=s.split(',');
+    filter_dictionary.set('Skills',s.split(','))
+    filter.push(s)
+    
+    var language= document.getElementById('lang').value
+    filter_dictionary.set('Language',s1.split(','))
+    filter.push(language)
+    
+    var loc= document.getElementById('loc').value
+    filter_dictionary.set('Location',s2.split(','))
+    filter.push(loc)
+  
+    if(document.getElementById('flexRadioDefault1').checked){
+      var check=document.getElementById('flexRadioDefault1').value;
+      filter_dictionary.set('Fresher','Yes')
+      filter.push(check)
+      
+    }
+    else{
+     var exp= document.getElementById('myRange').value
+     filter_dictionary.set('Experience',exp)
+     filter.push(exp)
+    
+    }//console.log(filter)
+    console.log(filter_dictionary);
+    console.log(filter_dictionary.get("Skills"))
+
+    return filter_dictionary
+  
+   }
+   function skills(e){
+    
+    //alert("hello")
+     var text=document.getElementById('myInput')
+     var old=text.value;
+     
+     if(old==''){
+       text.value=e.getAttribute('value')
+     }
+     else{
+       text.value=old+','+e.getAttribute('value')
+     }
+     document.getElementById("myDropdown").style.display='none'
+  
+    
+   }
+
+   function languages(e){
+    
+  
+    var text=document.getElementById('lang')
+    var old=text.value;
+    //console.log('yjg')
+    //e.disabled='true';
+    if(old==''){
+      text.value=old+e.getAttribute('value')
+    }
+    else{
+      text.value=old+','+e.getAttribute('value')
+    }
+    document.getElementById("myDropdown1").style.display='none'
+ 
+   
+  }
+
+  function locations(e){
+    
+  
+    var text=document.getElementById('loc')
+    var old=text.value;
+    //console.log('yjg')
+    //e.disabled='true';
+    if(old==''){
+      text.value=old+e.getAttribute('value')
+    }
+    else{
+      text.value=old+','+e.getAttribute('value')
+    }
+    document.getElementById("myDropdown2").style.display='none'
+ 
+   
+  }
+   function remove(){
+    
+     document.getElementById("myDropdown").style.display='none'
+    
+    
+   }
+   function remove1(){
+    
+    document.getElementById("myDropdown1").style.display='none'
+   
+   
+  }
+
+  function remove2(){
+    
+    document.getElementById("myDropdown2").style.display='none'
+   
+   
+  }
+  function myFunction1() {
+    
+    var x=document.getElementById("myDropdown1");
+   
+    //
+    if (x.style.display == "none"||x.style.display=='') {
+     
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  function myFunction2() {
+    
+    var x=document.getElementById("myDropdown2");
+   
+    //
+    if (x.style.display == "none"||x.style.display=='') {
+     
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+   function myFunction() {
+    
+     var x=document.getElementById("myDropdown");
+    
+     //
+     if (x.style.display == "none"||x.style.display=='') {
+      
+       x.style.display = "block";
+     } else {
+       x.style.display = "none";
+     }
+   }
+  
+   function filterFunction() {
+     var input, filter, ul, li, a, i;
+     input = document.getElementById("myInput");
+     filter = input.value.toUpperCase();
+     div = document.getElementById("myDropdown");
+     a = div.getElementsByTagName("a");
+     for (i = 0; i < a.length; i++) {
+       txtValue = a[i].textContent || a[i].innerText;
+       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+         a[i].style.display = "";
+       } else {
+         a[i].style.display = "none";
+       }
+     }
+   }
+   function handleChange1(checkbox) {
+     if(checkbox.checked == true){
+         document.getElementById("slider").style.display='none';
+     }
+ }
+   function handleChange(checkbox) {
+     if(checkbox.checked == true){
+         document.getElementById("slider").style.display='block';
+     }else{
+       document.getElementById("slider").style.display='none';
+    }
+ }
+   var slider = document.getElementById("myRange");
+ var output = document.getElementById("demo");
+ output.innerHTML = slider.value;
+  
+ slider.oninput = function() {
+   output.innerHTML = this.value;
+ }
+   var exampleModal = document.getElementById('exampleModal')
+ exampleModal.addEventListener('show.bs.modal', function (event) {
+  console.log({{skillset|safe}})
+  var temp={{skillset|safe}}
+  //console.log(typeof(temp))
+ for(let i=0;i<temp.length;i++)
+ {
+    var anchor =document.createElement('a')
+    anchor.id='anc'+i
+    
+    anchor.setAttribute("onclick", "skills(this)");
+    anchor.setAttribute("value", temp[i]);
+    
+    anchor.innerHTML=temp[i]
+    document.querySelector('#myDropdown').appendChild(anchor)
+    
+ }
+
+   var button = event.relatedTarget
+   
+   var recipient = button.getAttribute('data-bs-whatever')
+   
+   var modalTitle = exampleModal.querySelector('.modal-title')
+   var modalBodyInput = exampleModal.querySelector('.modal-body input')
+  
+  
+ })
+   function details(){
+  
+    
+     var icon=document.getElementById('icon')
+    
+     if (icon.className=='fas fa-angle-right') {
+      icon.className='fas fa-angle-down'
+     }
+      else{
+       icon.className='fas fa-angle-right'
+     }
+     var x=document.getElementById('summary')
+    
+     if (x.style.display === "none") {
+       x.style.display = "block";
+     } else {
+       x.style.display = "none";
+     }
+  
+    
+   }
+   $(document).ready(function() {
+  prep_modal();
+});
+
+function prep_modal()
+{
+  $(".modal").each(function() {
+
+  var element = this;
+	var pages = $(this).find('.modal1');
+
+  if (pages.length != 0)
+  {
+    	pages.hide();
+    	pages.eq(0).show();
+
+    	var b_button = document.createElement("button");
+                b_button.setAttribute("type","button");
+          			b_button.setAttribute("class","btn btn-primary");
+          			b_button.setAttribute("style","display: none;");
+          			b_button.innerHTML = "Back";
+
+    	var n_button = document.createElement("button");
+                n_button.setAttribute("type","button");
+          			n_button.setAttribute("class","btn btn-primary");
+          			n_button.innerHTML = "Next";
+
+    	$(this).find('.modal-footer').append(b_button).append(n_button);
+
+
+    	var page_track = 0;
+
+    	$(n_button).click(function() {
+        
+        this.blur();
+
+    		if(page_track == 0)
+    		{ var filterset = validate();
+
+          
+    			$(b_button).show();
+          
+          
+          var skills = filterset.get('Skills');
+            for(i=0;i<skills.length;i++){
+          var myDiv = document.getElementById("skillset");
+             var list1 =  document.createElement('li');
+           
+            var checkbox = document.createElement('input');
+              
+            
+            checkbox.type = "checkbox";
+            checkbox.name = "name1";
+            checkbox.value = "value";
+            checkbox.id = "id1";
+              
+            // creating label for checkbox
+            var label = document.createElement('label');
+            label.setAttribute('class','m-1')
+            
+            label.htmlFor = "id1";
+              
+            
+            label.appendChild(document.createTextNode(skills[i]));
+              
+            
+            myDiv.appendChild(list1);
+            list1.appendChild(checkbox);
+            
+            list1.appendChild(label);
+            }
+            var location = filterset.get('Location');
+            for(i=0;i<location.length;i++){
+          var myDiv = document.getElementById("newloc");
+          var list2 =  document.createElement('li');
+            
+            //var checkbox = document.createElement('input'); 
+            
+            
+           
+            var label = document.createElement('label');
+            label.setAttribute('class','m-1')
+            
+            label.htmlFor = "id2";
+              
+            
+            label.appendChild(document.createTextNode(location[i]));
+              
+            
+            myDiv.appendChild(list2);
+            //list2.appendChild(checkbox);
+            list2.appendChild(label);
+            }
+            var lang1 = filterset.get('Language');
+            for(i=0;i<lang1.length;i++){
+              var list3 =  document.createElement('li');
+            var myDiv = document.getElementById("newlang");
+              
+            
+            
+           
+            var label = document.createElement('label');
+            label.setAttribute('class','m-1') 
+            
+            label.htmlFor = "id";
+              
+           
+            label.appendChild(document.createTextNode(lang1[i]));
+              
+            
+            myDiv.appendChild(list3);
+            //list3.appendChild(checkbox)
+            list3.appendChild(label);
+            }
+        
+          
+          
+    		}
+
+    		if(page_track == pages.length-2)
+    		{
+          console.log("533")
+    			$(n_button).text("Submit");
+    		}
+
+        if(page_track == pages.length-1)
+        {
+          console.log("539")
+          $(element).find("form").submit(function(){
+            for(let i=0;i<filter.length;i++){
+      var skill_key=document.createElement('li')
+      
+      if(isNaN(filter[i])){
+       var text=document.createTextNode(filter[i]+':')
+      }else{
+       var text=document.createTextNode("Experience of "+filter[i]+'yr:')
+      }
+      
+       var boldtext= document.createElement('strong')
+       boldtext.appendChild(text)
+      skill_key.appendChild(boldtext)
+      
+      var listval=document.createElement('li')
+      var listicon=document.createElement('i')
+      skill_key.className='d-inline';
+      listval.className='d-inline mx-1';
+      listicon.className='fas fa-check';
+  
+      
+      
+      listicon.style.color='green'
+      listval.appendChild(listicon)
+      listval.appendChild(document.createElement("br"))
+      document.querySelector("#summarylist").appendChild(skill_key)
+      document.querySelector("#summarylist").appendChild(listval)
+    
+    
+    }
+    document.querySelector("#filtersummary").style.display='block'
+          });
+        }
+
+    		if(page_track < pages.length-1)
+    		{
+    			page_track++;
+
+    			pages.hide();
+    			pages.eq(page_track).show();
+    		}
+
+
+    	});
+
+    	$(b_button).click(function() {
+
+    		if(page_track == 1)
+    		{
+    			$(b_button).hide();
+    		}
+
+    		if(page_track == pages.length-1)
+    		{
+    			$(n_button).text("Next");
+    		}
+
+    		if(page_track > 0)
+    		{
+    			page_track--;
+
+    			pages.hide();
+    			pages.eq(page_track).show();
+    		}
+
+
+    	});
+
+  }
+
+  });
+}
+   
+ 
+</script>
+</html>
+
+

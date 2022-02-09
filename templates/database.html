@@ -1,0 +1,397 @@
+{% extends "base1.html" %}
+
+{% block title%} Database {% endblock %}
+
+{% block content %}
+
+
+<script>
+    function openCity(evt, cityName) {
+      console.log("hello")
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  //tabcontent = document.getElementsByClassName("tabcontent");
+  //for (i = 0; i < tabcontent.length; i++) {
+   // tabcontent[i].style.display = "none";
+  //}
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  //document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+function test(){
+    //document.getElementById('div1').classList.add('mystyleall')
+    document.getElementById('completed').style.borderColor='#fff1f3'
+    document.getElementById('completed').style.color='grey'
+   
+    document.getElementById('warn').style.borderColor='#fff1f3'
+    document.getElementById('warn').style.color='grey'
+ 
+    let x=document.getElementById('notmatched')
+    x.style.borderBottom='3px solid red'
+    x.style.color='red'
+    //x.classList.add("mystyle");
+     
+  }
+  function test1(){
+   
+    //document.getElementById('div').classList.add('mystyleall')
+    document.getElementById('notmatched').style.borderColor='#fff1f3'
+    document.getElementById('notmatched').style.color='grey'
+   
+    document.getElementById('warn').style.borderColor='#fff1f3'
+    document.getElementById('warn').style.color='grey'
+ 
+    let x=document.getElementById('completed')
+    x.style.borderBottom='3px solid green'
+    x.style.color='green'
+    //x.classList.add("mystyle1");
+     
+  }
+  function test2(){
+    //document.getElementById('div').classList.add('mystyleall')
+    document.getElementById('notmatched').style.borderColor='#fff1f3'
+    document.getElementById('notmatched').style.color='grey'
+   
+    //document.getElementById('div1').classList.add('mystyleall')
+    document.getElementById('completed').style.borderColor='#fff1f3'
+    document.getElementById('completed').style.color='grey'
+    let x=document.getElementById('warn')
+    x.style.borderBottom='3px solid yellow'
+    x.style.color='yellow'
+    //x.classList.add("mystyle2");
+     
+  }
+ 
+ 
+
+    function validateRED() {
+       
+       var parent = document.getElementById("newparent_row");
+       var child = parent.lastElementChild;
+       while(child){
+         parent.removeChild(child)
+         child=parent.lastElementChild
+       }
+       for(let i=1;i<6;i++){
+         
+        var row = document.createElement('div');
+         row .setAttribute('class','row justify-content-start m-3')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         row.id = "div"+i
+         row.classList.add('rowstylered')
+         //console.log(row.id)
+         document.getElementById("newparent_row").appendChild(row);
+
+         var column1 = document.createElement('div');
+         column1.setAttribute('class','col-2 p-3')
+        // column1.class = "col-2"
+         document.getElementById("div"+i).appendChild(column1);
+         column1.innerHTML = "CV"+i+".pdf";
+
+
+         var column2 = document.createElement('div');
+         column2.setAttribute('class','col-1 p-3')
+         var aTag = document.createElement('a');
+         //var kunalborder = document.createElement('div');
+         //kunalborder.setAttribute('class','border-bottom border-1')
+         aTag.setAttribute('class','col-1 p-3')
+         aTag.setAttribute('href',"#");
+         aTag.innerText = "View";
+
+         
+         document.getElementById("div"+i).appendChild(column2);
+         document.getElementById("div"+i).appendChild(aTag);
+         //document.getElementById("div"+i).appendChild(kunalborder);
+         aTag.innerHTML= "View";
+
+         var column3 = document.createElement('div');
+         var summaryButton = document.createElement('div');
+         var summaryTag = document.createElement('a');
+         var iconTag = document.createElement('i');
+         var strongTag = document.createElement('strong');
+         var divsummary1 = document.createElement('div');
+         var divsummary = document.createElement('ul');
+
+
+         column3.setAttribute('class','col-3 p-1');
+         summaryButton.id="filtersummary";
+         summaryButton.style.display='block';
+         summaryTag.setAttribute('onclick','details()');
+         iconTag.id="icon";
+         iconTag.setAttribute('class','fas fa-angle-right');
+         divsummary1.id='summary';
+         divsummary1.style.display='block';
+         divsummary.id='summarylist';
+         
+         divsummary1.appendChild(divsummary)
+          summaryTag.appendChild(iconTag)
+          summaryButton.appendChild(summaryTag)
+          summaryButton.appendChild(strongTag)
+
+          
+
+          row.appendChild(column3)
+         // document.getElementById("div"+i).appendChild(column3);
+         // document.getElementById("div"+i).appendChild(summaryButton)
+          column3.appendChild(divsummary1)
+          column3.appendChild(summaryButton)
+
+         // document.getElementById("filtersummary"+i).appendChild(strongTag)
+        
+         
+         
+         
+         
+         
+         strongTag.innerText="Summary";
+
+
+
+
+
+
+        // column1.class = "col-2"
+         //document.getElementById("div"+i).appendChild(column3);
+         //column3.innerHTML = "CV"+i+".pdf";
+         
+
+       }
+       
+    }
+       function validateGREEN() {
+        var parent = document.getElementById("newparent_row");
+       var child = parent.lastElementChild;
+       while(child){
+         parent.removeChild(child)
+         child=parent.lastElementChild}
+        for(let i=1;i<6;i++){
+         var row = document.createElement('div');
+         row .setAttribute('class','row justify-content-start m-3')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         row.id = "div"+i
+         row.classList.add('rowstylegreen')
+         //console.log(row.id)
+         document.getElementById("newparent_row").appendChild(row);
+
+         var column1 = document.createElement('div');
+         column1.setAttribute('class','col-2 p-3')
+        // column1.class = "col-2"
+         document.getElementById("div"+i).appendChild(column1);
+         column1.innerHTML = "CV"+i+".pdf";
+
+
+         var column2 = document.createElement('div');
+         column2.setAttribute('class','col-2 p-3')
+         var aTag = document.createElement('a');
+         var kunalborder = document.createElement('div');
+         kunalborder.setAttribute('class','border-bottom border-1')
+         aTag.setAttribute('class','col-2 p-3')
+         aTag.setAttribute('href',"#");
+         aTag.innerText = "View";
+         
+         document.getElementById("div"+i).appendChild(column2);
+         document.getElementById("div"+i).appendChild(aTag);
+         document.getElementById("div"+i).appendChild(kunalborder);
+         aTag.innerHTML= "View";
+}
+}
+
+function validateYELLOW() {
+  var parent = document.getElementById("newparent_row");
+       var child = parent.lastElementChild;
+       while(child){
+         parent.removeChild(child)
+         child=parent.lastElementChild}
+  for(let i=1;i<6;i++){
+         var row = document.createElement('div');
+         row .setAttribute('class','row justify-content-start m-3')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         row.id = "div"+i
+         row.classList.add('rowstyleamber')
+         //console.log(row.id)
+         document.getElementById("newparent_row").appendChild(row);
+
+         var column1 = document.createElement('div');
+         column1.setAttribute('class','col-2 p-3')
+        // column1.class = "col-2"
+         document.getElementById("div"+i).appendChild(column1);
+         column1.innerHTML = "CV"+i+".pdf";
+
+
+         var column2 = document.createElement('div');
+         column2.setAttribute('class','col-2 p-3')
+         var aTag = document.createElement('a');
+         
+         aTag.setAttribute('class','col-2 p-3')
+         aTag.setAttribute('href',"#");
+         var kunalborder = document.createElement('div');
+         kunalborder.setAttribute('class','border-bottom border-1')
+         aTag.innerText = "View";
+         
+         document.getElementById("div"+i).appendChild(column2);
+         document.getElementById("div"+i).appendChild(aTag);
+         document.getElementById("div"+i).appendChild(kunalborder);
+         aTag.innerHTML= "View";
+}
+}
+</script>
+
+<div class="container mx-auto my-5  rounded p-3 border border-1"style="background:#F7F7F7" id = "parent_row">
+    <div class="row justify-content-start m-3">
+      <div class="col-2  p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='completed'onclick="test1();validateGREEN()">
+        <strong>Complete Matched</strong>
+       </div>
+       <div class="col-2   p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='warn'onclick="test2();validateYELLOW()">
+        <strong>Partially Matched</strong>
+       </div>
+       <div class="col-2   p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='notmatched'onclick="test();validateRED()">
+        <strong> Not Matched</strong>
+        </div>
+        <div class="col-4 p-3">
+
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+    
+        </div>
+        <div class='col-2 p-3 '>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fas fa-filter"></i></button>
+          
+        </div>
+       <div class='border-bottom border-1'> 
+ 
+     
+    </div>
+
+
+
+    <div class="row justify-content-start m-3  " style="background:#F7F7F7;">
+    <div class="container " id = "newparent_row">
+      <div class="row justify-content-start m-3">
+        <center><strong>No Data to display. Click to View!</strong></center>
+      </div>
+    </div>
+    </div>
+   
+    
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Your Filters</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" id="form"action="">
+            {% csrf_token %}
+            <div class="modal1"> 
+            <div class="mb-3">
+              <p>Please select the Mandatory skills</p>
+              <label for="myInput" class="col-form-label">Skills:</label>
+              <input type="text" class="form-control"id="myInput" onclick="myFunction()"placeholder='e.g Devops..'onkeyup="filterFunction()"autocomplete='off'row='5'>
+             <div id="myDropdown" class="dropdown-content"onblur='remove()'tabindex="0">
+             
+             
+             </div>
+         
+            </div>
+            <div class="mb-3 ">
+              <label for="lang" class="col-form-label">Language:</label>
+              <input type='text' class="form-control" onclick="myFunction1()" id="lang"placeholder='e.g.English,Hindi etc'></textarea>
+              <div id="myDropdown1" class="dropdown-content"onblur='remove1()'tabindex="0">
+                <a href="#" onclick='languages(this)'value='English'>English</a>
+                <a href="#"onclick='languages(this)'value='Hindi'>Hindi</a>
+                <a href="#blog"onclick='languages(this)'value='Marathi'>Marathi</a>
+                
+               
+            </div>
+            </div>
+            <div class="mb-3">
+              <label for="loc" class="col-form-label">Location:</label>
+              <input type='text' class="form-control" onclick="myFunction2()" id="loc"placeholder='e.g.Mumbai'></textarea>
+              <div id="myDropdown2" class="dropdown-content"onblur='remove2()'tabindex="0">
+                <a href="#" onclick='locations(this)'value='Mumbai'>Mumbai</a>
+                <a href="#"onclick='locations(this)'value='Bangalore'>Bangalore</a>
+                <a href="#"onclick='locations(this)'value='Pune'>Pune</a>
+                
+               
+            </div>
+            </div>
+            <div class="mb-3">
+              <div class="input-group ">
+                <div class="input-group-text bg-white w-100">
+                  <input class="form-check-input mt-0" onchange='handleChange1(this)'type="radio" value="Fresher" name="flexRadioDefault"id='flexRadioDefault1'aria-label="Radio button for following text input"checked>
+                  <strong><label class="form-check-label mx-3" for="flexRadioDefault1">
+                   Fresher
+                  </label></strong>
+                </div><br>
+                <div class="input-group-text bg-white w-100 mt-2">
+                  <input class="form-check-input mt-0" onchange='handleChange(this)'type="radio" value="" name="flexRadioDefault"id='flexRadioDefault2'aria-label="Radio button for following text input">
+                  <label class="form-check-label mx-3" for="flexRadioDefault2">
+                   <strong>Experienced</strong>
+                  </label>
+                </div>
+                <div class="slidecontainer m-2"style='display:none'id='slider'>
+                  <input type="range" min="15" max="30" value="1" class="slider" id="myRange">
+                  <p>In years: <span id="demo"></span></p>
+                </div>
+               
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="modal1">
+            
+              
+            <ul>
+
+ 
+              <li>
+                
+                <label class="form-check-label" for="flexCheckDefault">Skills:</label>
+                  <ul id="skillset">
+                  
+                </ul>
+              </li>
+             
+             
+              <li>
+                
+                <label class="form-check-label" for="flexCheckDefault">
+                Language:</label>
+                <ul id="newlang">
+               
+              </ul></li>
+              <li>
+                <label class="form-check-label" for="flexCheckDefault">
+                Location:</label>
+                <ul id="newloc">
+                  
+            </ul>  
+          </li>
+          </div>
+        </div>
+        </form>
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-secondary" onclick = ''id = "next">Next</button>
+          <button type="button" class="btn btn-primary"onclick='validate()'>Search</button>-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
