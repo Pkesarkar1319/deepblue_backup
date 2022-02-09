@@ -1,0 +1,134 @@
+{% extends "base1.html" %}
+
+{% block title%} Upload {% endblock %}
+
+{% block content %}
+<script>
+  function upload(){
+      const input = document.getElementById('inputGroupFile04');
+      var count = 0;
+// Retrieve FileList object
+      const files = input.files;
+      //console.log(files)
+//accept="file_extension|.pdf|.doc|.jpg|.png|.html"
+// Loop through files
+
+  for (let i = 0; i < files.length; i++) {
+    let file = files.item(i);
+    var folder_name = file.webkitRelativePath;
+    var folder = folder_name.toString();
+    var folder_name1= folder.slice(0, folder.indexOf('/'))
+    //console.log(folder_name1)
+    //console.log(file.name);
+    extension = file.name.toString().split('.').pop();
+    //console.log(extension);
+  //const arr = Array.from(files);
+    expected_extensions = ["pdf","doc","html","txt","docx","docs","txt","jpg"]
+  
+    if(expected_extensions.includes(extension))
+    {
+      
+    }
+    else
+    {   //var a
+      //var fs = require('fs');
+      //fs.rename(file.name, 'ignore');
+     
+      //c.push(b)
+      //var parent = document.getElementById("newparent_row1");
+      
+
+      var parent = document.getElementById("newparent_row1");
+       var child = parent.lastElementChild;
+       while(child){
+         parent.removeChild(child)
+         child=parent.lastElementChild
+       }
+        if(count==0){
+          
+         //row1.innerHTML = "Output("+(count-1)+")";
+
+         var statement = document.createElement('p');
+         statement .setAttribute('class','pb-3 mb-0 small lh-sm border-bottom')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         //row.id = "div"+i
+         //row.classList.add('rowstylered')
+         //console.log(row.id)
+         //row.classList.add('rowstylered')
+         document.getElementById("newparent_row").appendChild(statement);
+         statement.innerHTML = ("Error uploading the above files from the folder"+" "+"("+folder_name1+")"+".");
+        }
+        
+         var row = document.createElement('div');
+         row .setAttribute('class','pb-3 mb-0 small lh-sm border-bottom')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         //row.id = "div"+i
+         //row.classList.add('rowstylered')
+         //console.log(row.id)
+         row.classList.add('rowstylered')
+         document.getElementById("newparent_row").appendChild(row);
+         row.innerHTML = (file.name +" " +":"+" "+folder_name1+"  "+"("+(i+1)+")");
+         count++;
+         //var row1 = document.createElement('div');
+         //row .setAttribute('class','border-bottom pb-2 mb-0')
+         //row.class = "row justify-content-start m-3 bg-danger"
+         //row.id = "div"+i
+         //row.classList.add('rowstylered')
+         //console.log(row.id)
+         //row.classList.add('rowstylered')
+         //document.getElementById("error").appendChild(row1);
+         //row1.innerHTML = "Output("+(count-1)+")";
+         //myRenamedFile = new File([file], "ignore."+extension);
+      //console.log(myRenamedFile.name,i)
+      //arr.forEach(file => arr.push(file.name));
+      
+      
+  }
+
+  
+  
+}
+document.getElementById("counter").innerHTML = "Output("+(count)+")" ;
+        //var row1 = document.createElement('div');
+         //row1.setAttribute('class','border-bottom pb-2 mb-0')
+         
+  }
+
+  
+</script>
+
+<main class="container">
+   <form action="{% url 'resume' %}" method="POST" enctype="multipart/form-data">
+     {% csrf_token %}
+    <div class="d-flex align-items-center p-3 my-3 text-white bg-orange rounded shadow-sm opacity-75" style="background:#09009B ">
+     
+      <div class="lh-1">
+        <h1 class="h6 mb-0 text-white lh-1">Upload CV/Resume</h1><br>
+        <input type="file" webkitdirectory mozdirectory name = "file"class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"><br>
+        <button class="btn btn-outline-light fg-light" type="submit" id="inputGroupFileAddon04"onclick="upload()">Upload</button>
+      </div>
+    </div>
+   
+   
+   
+    <div class="my-3 p-3 bg-body rounded shadow-sm opacity-75"id='newparent_row'>
+      <h6 class="border-bottom pb-2 mb-0" id = "counter" >Output(0)</h6>
+      <div class="d-flex text-muted pt-3" id = "newparent_row1">
+     
+   
+        <p class="pb-3 mb-0 small lh-sm border-bottom" >
+          <strong class="d-block text-gray-dark"id = "error" >No problem detected in upload</strong>
+         
+        </p>
+      </div>
+     
+   
+   
+       
+     
+    </div>
+   
+  </form>
+  </main>
+  
+{% endblock %}
