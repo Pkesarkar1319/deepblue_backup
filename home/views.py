@@ -19,6 +19,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,authenticate
 from home.models import SignUp
 from home.models import ResumeFile
+from pprint import pprint
 #from django.contrib.auth.models import Signup
 #from .models import PreRegistration
 
@@ -32,6 +33,8 @@ def filter(request):
     mandatory_filed=[]
     optional_filed=[]
     exp=[]
+    
+   # print(mandatory_filed)
     filterdata={}
     if request.method=='POST':
         skills=request.POST.get('myInput')
@@ -62,24 +65,25 @@ def filter(request):
         
 
         
-
-        #print("*****Mandatory",mandatory_filed)
-       # print("*****optional",optional_filed)
+        print("*****Mandatory",mandatory_filed)
+        print("*****optional",optional_filed)
         mongodb.search(mandatory_filed,optional_filed)
         partial=mongodb.partial_matched()
         complete=mongodb.complete_matched()
         notmatch=mongodb.not_matched()
-        #print("******partial***\n",partial)
-       # print("*****complete****\n",complete)
-        #print('*******not matched\n',notmatch)
+        pprint(partial)
+        pprint(complete)
+        pprint(notmatch)
         print("partial len",len(partial))
         print("complete len",len(complete))
         print("notmatch len",len(notmatch))
         
+        
         filterdata['complete']=complete
         filterdata['partial']=partial
         filterdata['notmatched']=notmatch
-    return render(request,'database.html',filterdata)
+        filterdata['skillset']=mongodb.get_skills()
+    return render(request,'search.html',filterdata)
         
 
 

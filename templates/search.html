@@ -1,0 +1,55 @@
+{% extends "database.html" %}
+
+{% block show%}
+
+{% for i in partial %}
+<div class="row justify-content-start m-3  " style="border-left:4px solid red;border-radius:2.5px;">
+  <div class="col-2   p-3">
+   <strong>CV2.pdf</strong><br>
+   <p style="color:grey;font-size:13px"><strong>Created on 24-11-21</strong></p>
+  </div>
+  <div class="col-2  p-3">
+  <a href="">Click to view</a>
+  </div>
+  <div class="col-4 p-3 ">
+    <div id="filtersummary" style="display: block;"><a style="background:lightgrey;border-radius:2px;color:black;size:50px;padding-left:3px;padding-right:3px;cursor:pointer" onclick="details()"><i style="size:5x" id="icon" class="fas fa-angle-down" aria-hidden="true"></i></a>&ensp;<strong> Searched Summary</strong></div>
+    <div id="summary" style="display: block;">
+      <ul id="summarylist">
+       {% for j in i.matched_mandatory_skills%}
+       <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-check" aria-hidden="true" style="color: green;"></i><br></li>
+       {% endfor %} 
+       {% for j in i.matched_optional_skills%}
+       <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-check" aria-hidden="true" style="color: green;"></i><br></li>
+       {% endfor %}
+       {% for j in i.notmatched_mandatory_skills%}
+       <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-times" aria-hidden="true" style="color: red;"></i><br></li>
+       {% endfor %}
+       {% for j in i.notmatched_optional_skills%}
+       <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-times" aria-hidden="true" style="color: red;"></i><br></li>
+       {% endfor %}
+          
+      
+    </div>
+    </div>
+  
+  
+</div>
+{% endfor %}
+
+ {% comment %} {% else %}
+ <div class="row justify-content-start m-3">
+        
+    <center>No Data to display. Filter didnt matched !</center>
+    
+  </div>
+ {% endif %} {% endcomment %}
+
+{% endblock show %}
+
+
+
+
+
+
+
+

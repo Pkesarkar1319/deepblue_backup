@@ -6,16 +6,16 @@
 
 
 <script>
-
+   console.log({{partial|safe}})
    // validateGREEN('{{complete}}')
    //style='background:lightgrey;border-radius:2px;color:black;size:50px;padding-left:3px;padding-right:3px;cursor:pointer'
-   var flag='{{complete}}'
+  /* var flag='{{complete}}'
    if(flag!='')
    { let x=document.getElementById('completed')
    x.style.borderBottom='3px solid green'
    x.style.color='green'
      validateGREEN()
-   }
+   }*/
 function test(){
     //document.getElementById('div1').classList.add('mystyleall')
     document.getElementById('completed').style.borderColor='#fff1f3'
@@ -244,7 +244,7 @@ function test(){
        while(child){
          parent.removeChild(child)
          child=parent.lastElementChild}
-        if(flag!='') 
+       /* if(flag!='') 
         {var values={{complete|safe}}
           if (values!=[]){
           for(i=0;i<values.length;i++){
@@ -315,8 +315,8 @@ function test(){
         }
         }
         
-        
-/*
+        */
+
         for(let i=1;i<6;i++){
          var row = document.createElement('div');
          row .setAttribute('class','row justify-content-start m-3')
@@ -378,7 +378,7 @@ function test(){
          
          strongTag.innerText="Summary";
 
-}*/
+}
 }
 
 function validateYELLOW() {
@@ -446,9 +446,13 @@ function validateYELLOW() {
 
     <div class="row justify-content-start m-3  " style="background:#F7F7F7;">
     <div class="container " id = "newparent_row">
+      {% block show %}
       <div class="row justify-content-start m-3">
+        
         <center><strong>No Data to display. Click to View!</strong></center>
+        
       </div>
+      {% endblock show %}
     </div>
     </div>
    
