@@ -28,12 +28,16 @@ from django.contrib.auth import login,logout,authenticate
 from resumeparser.settings import EMAIL_HOST_USER, EMAIL_USE_TLS
 # Create your views here.
 signup = SignUp.empAuth_objects
+filterdata={}
 
 def filter(request):
     mandatory_filed=[]
     optional_filed=[]
     exp=[]
-    
+    partial=[]
+    complete=[]
+    notmatch=[]
+    global filterdata
    # print(mandatory_filed)
     filterdata={}
     if request.method=='POST':
@@ -67,10 +71,23 @@ def filter(request):
         
         print("*****Mandatory",mandatory_filed)
         print("*****optional",optional_filed)
-        mongodb.search(mandatory_filed,optional_filed)
-        partial=mongodb.partial_matched()
-        complete=mongodb.complete_matched()
-        notmatch=mongodb.not_matched()
+        results=mongodb.search(mandatory_filed,optional_filed)
+        print(len(results))
+        for i in results:
+        # print("mandate value:{} optional value:{}".format(i['mandatory_value'],i['optional_value']))
+         if (i['mandatory_value'] > 0 and i['matched_mandatory_skills'] != []):
+            if (i['mandatory_value'] == 1):
+                complete.append(i)
+            else:
+                partial.append(i)
+
+
+         else:
+            notmatch.append(i)
+
+        complete.sort(key=lambda e:(e['optional_value']),reverse=True)
+        partial.sort(key=lambda e:(e['mandatory_value'],e['optional_value']),reverse=True)
+        notmatch.sort(key=lambda e:(e['optional_value']),reverse=True)
         pprint(partial)
         pprint(complete)
         pprint(notmatch)
@@ -83,9 +100,14 @@ def filter(request):
         filterdata['partial']=partial
         filterdata['notmatched']=notmatch
         filterdata['skillset']=mongodb.get_skills()
-    return render(request,'search.html',filterdata)
+    return render(request,'complete.html',filterdata)
         
-
+def complete(request):
+    return render(request,'complete.html',filterdata)
+def partial(request):
+    return render(request,'partial.html',filterdata)
+def notmatched(request):
+    return render(request,'notmatched.html',filterdata)
 
 
        

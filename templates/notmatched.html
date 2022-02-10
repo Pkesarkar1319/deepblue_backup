@@ -1,8 +1,10 @@
 {% extends "database.html" %}
-
-{% block show%}
-
-{% for i in partial %}
+<script>
+    test3();
+</script>
+{% block show %}
+{% if notmatched %}
+{% for i in notmatched %}
 <div class="row justify-content-start m-3  " style="border-left:4px solid red;border-radius:2.5px;">
   <div class="col-2   p-3">
    <strong>CV2.pdf</strong><br>
@@ -19,7 +21,7 @@
        <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-check" aria-hidden="true" style="color: green;"></i><br></li>
        {% endfor %} 
        {% for j in i.matched_optional_skills%}
-       <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-check" aria-hidden="true" style="color: green;"></i><br></li>
+       <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-check" aria-hidden="true" style="color: yellow;"></i><br></li>
        {% endfor %}
        {% for j in i.notmatched_mandatory_skills%}
        <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-times" aria-hidden="true" style="color: red;"></i><br></li>
@@ -27,7 +29,21 @@
        {% for j in i.notmatched_optional_skills%}
        <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-times" aria-hidden="true" style="color: red;"></i><br></li>
        {% endfor %}
-          
+       
+       
+       {% if i.matched_experience %}
+       <li class="d-inline"><strong>Experience</strong></li><li class="d-inline mx-1"><i class="fas fa-check" aria-hidden="true" style="color: green;"></i><br></li>
+       {% else %}
+       <li class="d-inline"><strong>Experience</strong></li><li class="d-inline mx-1"><i class="fas fa-times" aria-hidden="true" style="color: red;"></i><br></li>
+       {% endif %}
+       {% if i.language_matched%}
+       {% for j in i.language_matched%}
+       <li class="d-inline"><strong>{{j}}</strong></li><li class="d-inline mx-1"><i class="fas fa-check" aria-hidden="true" style="color: green;"></i><br></li>
+       {% endfor %}
+       {% else %}
+       <li class="d-inline"><strong>Language</strong></li><li class="d-inline mx-1"><i class="fas fa-times" aria-hidden="true" style="color: red;"></i><br></li>
+       {% endif %}
+
       
     </div>
     </div>
@@ -35,14 +51,14 @@
   
 </div>
 {% endfor %}
-
- {% comment %} {% else %}
- <div class="row justify-content-start m-3">
+{% else %}
+<div class="row justify-content-start m-3">
         
-    <center>No Data to display. Filter didnt matched !</center>
-    
-  </div>
- {% endif %} {% endcomment %}
+  <center><strong>No Data to display in NOT MATCHED !</strong></center>
+  
+</div>
+{% endif %}
+
 
 {% endblock show %}
 

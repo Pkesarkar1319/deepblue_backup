@@ -39,6 +39,9 @@ urlpatterns = [
     path('resume/', include('home.urls')),
     path('demoupload/', include('home.urls')),
     path('filter', include('home.urls')),
+    path('complete', include('home.urls')),
+    path('partial', include('home.urls')),
+    path('notmatched', include('home.urls')),
 
 
 ]

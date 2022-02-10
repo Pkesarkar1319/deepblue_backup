@@ -1,25 +1,25 @@
+from unittest import result
 import pymongo as py
 import json
 
 myclient = py.MongoClient("mongodb://localhost:27017/")
 db = myclient["Resume"]
 collection = db['data']
-results=[]
-completely_matched=[]
-partially_matched=[]
-Not_matched=[]
+
+
 def get_skills():
 
     return collection.distinct('skills')
 
 
 def search(mandatory, optional):
+    results=[]
     eachvalue = round(1/(len(mandatory[0])+1), 2)
     x = 1/(len(optional[0])+len(optional[1]))
     eachvalue_o = round(x, 2)
 
-    global results,completely_matched,partially_matched,Not_matched
-    temp = {}
+    
+    
 
     for i in collection.find({}):
       temp = {}
@@ -33,14 +33,16 @@ def search(mandatory, optional):
       if len(lang)>0:
        temp['language_matched']=lang
       else:
-       temp['language_notmatched']=list(set(optional[1]) - set(lang))
+
+       temp['language_matched']=[]
       if i['Work_Experience'] in range(exp[0],exp[1]):
        temp['matched_experience']=i['Work_Experience']
 
 
        Experience=1
       else:
-       temp['experience of {} and {}'.format(exp[0],exp[1])] ='NA'
+       #temp['experience of {} and {}'.format(exp[0],exp[1])] ='NA'
+       temp['matched_experience']=[]
 
 
 
@@ -55,30 +57,31 @@ def search(mandatory, optional):
       temp['mandatory_value']=round((len(skillset)+Experience)*eachvalue,1)
       temp['optional_value']=round((len(optional_skills)+len(lang))*eachvalue_o,1)
       results.append(temp)
-    for i in results:
-        # print("mandate value:{} optional value:{}".format(i['mandatory_value'],i['optional_value']))
-        if (i['mandatory_value'] > 0 and i['matched_mandatory_skills'] != []):
-            if (i['mandatory_value'] == 1):
-                completely_matched.append(i)
-            else:
-                partially_matched.append(i)
+    return results
+    # for i in results:
+    #     # print("mandate value:{} optional value:{}".format(i['mandatory_value'],i['optional_value']))
+    #     if (i['mandatory_value'] > 0 and i['matched_mandatory_skills'] != []):
+    #         if (i['mandatory_value'] == 1):
+    #             completely_matched.append(i)
+    #         else:
+    #             partially_matched.append(i)
 
 
-        else:
-            Not_matched.append(i)
+    #     else:
+    #         Not_matched.append(i)
 
 
 
 
-def complete_matched():
-    completely_matched.sort(key=lambda e:(e['optional_value']),reverse=True)
-    return completely_matched
-def partial_matched():
-    partially_matched.sort(key=lambda e:(e['mandatory_value'],e['optional_value']),reverse=True)
-    return partially_matched
-def not_matched():
-    Not_matched.sort(key=lambda e:(e['optional_value']),reverse=True)
-    return Not_matched
+# def complete_matched():
+#     completely_matched.sort(key=lambda e:(e['optional_value']),reverse=True)
+#     return completely_matched
+# def partial_matched():
+#     partially_matched.sort(key=lambda e:(e['mandatory_value'],e['optional_value']),reverse=True)
+#     return partially_matched
+# def not_matched():
+#     Not_matched.sort(key=lambda e:(e['optional_value']),reverse=True)
+#     return Not_matched
 
 
 #mandatory=[['Android','Python','SQL'],[3,9]]

@@ -423,14 +423,14 @@ function validateYELLOW() {
 
 <div class="container mx-auto my-5  rounded p-3 border border-1"style="background:#F7F7F7" id = "parent_row">
     <div class="row justify-content-start m-3">
-      <div class="col-2  p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='completed'onclick="test1();validateGREEN()">
-        <strong>Complete Matched</strong>
+      <div class="col-2  p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='completed'onclick="test1()">
+        <strong><a href='{% url 'complete' %}'id='green'style='text-decoration:none'onclick='{this.style.color='green'}'>Complete Matched</a></strong>
        </div>
-       <div class="col-2   p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='warn'onclick="test2();validateYELLOW()">
-        <strong>Partially Matched</strong>
+       <div class="col-2   p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='warn'onclick="test2()">
+        <strong><a href='{% url 'partial' %}'onclick='{this.style.color='yellow'}'style='text-decoration:none'>Partially Matched</a></strong>
        </div>
-       <div class="col-2   p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='notmatched'onclick="test();validateRED()">
-        <strong> Not Matched</strong>
+       <div class="col-2   p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='notmatched'onclick="test()">
+        <strong> <a href='{% url 'notmatched' %}'onclick='{this.style.color='red'}'style='text-decoration:none'>Not Matched</a></strong>
         </div>
       
         <div class='col-2 p-3 '>
@@ -481,7 +481,7 @@ function validateYELLOW() {
             </div>
             <div class="mb-3 ">
               <label for="lang" class="col-form-label">Language:</label>
-              <input type='text' class="form-control" onclick="myFunction1()" id="lang"name='lang'placeholder='e.g.English,Hindi etc'>
+              <input type='text' class="form-control" onclick="myFunction1()" id="lang"name='lang'placeholder='e.g.English,Hindi etc'autocomplete='off'>
               <div id="myDropdown1" class="dropdown-content"onblur='remove1()'tabindex="0">
                 <a href="#" onclick='languages(this)'value='English'>English</a>
                 <a href="#"onclick='languages(this)'value='Hindi'>Hindi</a>
@@ -492,7 +492,7 @@ function validateYELLOW() {
             </div>
             <div class="mb-3">
               <label for="loc" class="col-form-label">Location:</label>
-              <input type='text' class="form-control" onclick="myFunction2()" id="loc"name='loc'placeholder='e.g.Mumbai'></textarea>
+              <input type='text' class="form-control" onclick="myFunction2()" id="loc"name='loc'placeholder='e.g.Mumbai'autocomplete='off'></textarea>
               <div id="myDropdown2" class="dropdown-content"onblur='remove2()'tabindex="0">
                 <a href="#" onclick='locations(this)'value='Mumbai'>Mumbai</a>
                 <a href="#"onclick='locations(this)'value='Bangalore'>Bangalore</a>
