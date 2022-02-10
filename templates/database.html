@@ -6,27 +6,16 @@
 
 
 <script>
-    function openCity(evt, cityName) {
-      console.log("hello")
-  // Declare all variables
-  var i, tabcontent, tablinks;
 
-  // Get all elements with class="tabcontent" and hide them
-  //tabcontent = document.getElementsByClassName("tabcontent");
-  //for (i = 0; i < tabcontent.length; i++) {
-   // tabcontent[i].style.display = "none";
-  //}
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  //document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
+   // validateGREEN('{{complete}}')
+   //style='background:lightgrey;border-radius:2px;color:black;size:50px;padding-left:3px;padding-right:3px;cursor:pointer'
+   var flag='{{complete}}'
+   if(flag!='')
+   { let x=document.getElementById('completed')
+   x.style.borderBottom='3px solid green'
+   x.style.color='green'
+     validateGREEN()
+   }
 function test(){
     //document.getElementById('div1').classList.add('mystyleall')
     document.getElementById('completed').style.borderColor='#fff1f3'
@@ -80,7 +69,7 @@ function test(){
        while(child){
          parent.removeChild(child)
          child=parent.lastElementChild
-       }
+       }//not matched 
        for(let i=1;i<6;i++){
          
         var row = document.createElement('div');
@@ -144,7 +133,7 @@ function test(){
          // document.getElementById("div"+i).appendChild(summaryButton)
           column3.appendChild(divsummary1)
           column3.appendChild(summaryButton)
-
+          
          // document.getElementById("filtersummary"+i).appendChild(strongTag)
         
          
@@ -167,12 +156,167 @@ function test(){
        }
        
     }
+    function showsummary(x){
+
+      for(i=0;i<x.length;i++){
+        dicts=x[0]
+        var arr1=dicts.matched_mandatory_skills;
+        var arr2=dicts.matched_optional_skills;
+        var arr3=dicts.notmatched_mandatory_skills;
+        var arr4=dicts.notmatched_optional_skills;
+
+        for(i=0;i<arr1.length;i++){
+          var skill_key=document.createElement('li')
+          var text=document.createTextNode(arr1[0]+':')
+          var boldtext= document.createElement('strong')
+          boldtext.appendChild(text)
+          
+          var listval=document.createElement('li')
+          var listicon=document.createElement('i')
+          skill_key.className='d-inline';
+          listval.className='d-inline mx-1';
+          listicon.className='fas fa-check';
+          listicon.style.color='green'
+          listval.appendChild(listicon)
+          listval.appendChild(document.createElement("br"))
+         document.querySelector("#summarylist").appendChild(skill_key)
+         document.querySelector("#summarylist").appendChild(listval)
+        }
+        for(i=0;i<arr2.length;i++){
+          var skill_key=document.createElement('li')
+          var text=document.createTextNode(arr1[0]+':')
+          var boldtext= document.createElement('strong')
+          boldtext.appendChild(text)
+          
+          var listval=document.createElement('li')
+          var listicon=document.createElement('i')
+          skill_key.className='d-inline';
+          listval.className='d-inline mx-1';
+          listicon.className='fas fa-check';
+          listicon.style.color='green'
+          listval.appendChild(listicon)
+          listval.appendChild(document.createElement("br"))
+         document.querySelector("#summarylist").appendChild(skill_key)
+         document.querySelector("#summarylist").appendChild(listval)
+        }
+        for(i=0;i<arr3.length;i++){
+          var skill_key=document.createElement('li')
+          var text=document.createTextNode(arr1[0]+':')
+          var boldtext= document.createElement('strong')
+          boldtext.appendChild(text)
+          
+          var listval=document.createElement('li')
+          var listicon=document.createElement('i')
+          skill_key.className='d-inline';
+          listval.className='d-inline mx-1';
+          listicon.className='fas fa-check';
+          listicon.style.color='red'
+          listval.appendChild(listicon)
+          listval.appendChild(document.createElement("br"))
+         document.querySelector("#summarylist").appendChild(skill_key)
+         document.querySelector("#summarylist").appendChild(listval)
+        }
+        for(i=0;i<arr4.length;i++){
+          var skill_key=document.createElement('li')
+          var text=document.createTextNode(arr1[0]+':')
+          var boldtext= document.createElement('strong')
+          boldtext.appendChild(text)
+          
+          var listval=document.createElement('li')
+          var listicon=document.createElement('i')
+          skill_key.className='d-inline';
+          listval.className='d-inline mx-1';
+          listicon.className='fas fa-check';
+          listicon.style.color='red'
+          listval.appendChild(listicon)
+          listval.appendChild(document.createElement("br"))
+         document.querySelector("#summarylist").appendChild(skill_key)
+         document.querySelector("#summarylist").appendChild(listval)
+        }
+
+      }
+
+    }
        function validateGREEN() {
+         //if(x=='{{complete}}')
         var parent = document.getElementById("newparent_row");
        var child = parent.lastElementChild;
        while(child){
          parent.removeChild(child)
          child=parent.lastElementChild}
+        if(flag!='') 
+        {var values={{complete|safe}}
+          if (values!=[]){
+          for(i=0;i<values.length;i++){
+            var row = document.createElement('div');
+            row .setAttribute('class','row justify-content-start m-3')
+            //row.class = "row justify-content-start m-3 bg-danger"
+            row.id = "div"+i
+            row.classList.add('rowstylegreen')
+            //console.log(row.id)
+            document.getElementById("newparent_row").appendChild(row);
+   
+            var column1 = document.createElement('div');
+            column1.setAttribute('class','col-2 p-3')
+           // column1.class = "col-2"
+            document.getElementById("div"+i).appendChild(column1);
+            column1.innerHTML = "CV"+i+".pdf";
+   
+   
+            var column2 = document.createElement('div');
+            column2.setAttribute('class','col-2 p-3')
+            var aTag = document.createElement('a');
+            var kunalborder = document.createElement('div');
+            kunalborder.setAttribute('class','border-bottom border-1')
+            aTag.setAttribute('class','col-2 p-3')
+            aTag.setAttribute('href',"#");
+            aTag.innerText = "View";
+            
+            document.getElementById("div"+i).appendChild(column2);
+            document.getElementById("div"+i).appendChild(aTag);
+            document.getElementById("div"+i).appendChild(kunalborder);
+            aTag.innerHTML= "View";
+            column3.setAttribute('class','col-3 p-1');
+            summaryButton.id="filtersummary";
+            summaryButton.style.display='block';
+            summaryTag.setAttribute('onclick','details()');
+            iconTag.id="icon";
+            iconTag.setAttribute('class','fas fa-angle-right');
+            divsummary1.id='summary';
+            divsummary1.style.display='block';
+            divsummary.id='summarylist';
+            
+            divsummary1.appendChild(divsummary)
+             summaryTag.appendChild(iconTag)
+             summaryButton.appendChild(summaryTag)
+             summaryButton.appendChild(strongTag)
+   
+             
+   
+             row.appendChild(column3)
+            // document.getElementById("div"+i).appendChild(column3);
+            // document.getElementById("div"+i).appendChild(summaryButton)
+             column3.appendChild(divsummary1)
+             column3.appendChild(summaryButton)
+             
+            // document.getElementById("filtersummary"+i).appendChild(strongTag)
+           
+            
+            
+            
+            
+            
+            strongTag.innerText="Summary";
+
+
+
+            showsummary(values)
+          }
+        }
+        }
+        
+        
+/*
         for(let i=1;i<6;i++){
          var row = document.createElement('div');
          row .setAttribute('class','row justify-content-start m-3')
@@ -202,7 +346,39 @@ function test(){
          document.getElementById("div"+i).appendChild(aTag);
          document.getElementById("div"+i).appendChild(kunalborder);
          aTag.innerHTML= "View";
-}
+         column3.setAttribute('class','col-3 p-1');
+         summaryButton.id="filtersummary";
+         summaryButton.style.display='block';
+         summaryTag.setAttribute('onclick','details()');
+         iconTag.id="icon";
+         iconTag.setAttribute('class','fas fa-angle-right');
+         divsummary1.id='summary';
+         divsummary1.style.display='block';
+         divsummary.id='summarylist';
+         
+         divsummary1.appendChild(divsummary)
+          summaryTag.appendChild(iconTag)
+          summaryButton.appendChild(summaryTag)
+          summaryButton.appendChild(strongTag)
+
+          
+
+          row.appendChild(column3)
+         // document.getElementById("div"+i).appendChild(column3);
+         // document.getElementById("div"+i).appendChild(summaryButton)
+          column3.appendChild(divsummary1)
+          column3.appendChild(summaryButton)
+          
+         // document.getElementById("filtersummary"+i).appendChild(strongTag)
+        
+         
+         
+         
+         
+         
+         strongTag.innerText="Summary";
+
+}*/
 }
 
 function validateYELLOW() {
@@ -256,14 +432,7 @@ function validateYELLOW() {
        <div class="col-2   p-3"style="background:#F7F7F7;color:grey;cursor:pointer"id='notmatched'onclick="test();validateRED()">
         <strong> Not Matched</strong>
         </div>
-        <div class="col-4 p-3">
-
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-    
-        </div>
+      
         <div class='col-2 p-3 '>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fas fa-filter"></i></button>
           
@@ -293,13 +462,13 @@ function validateYELLOW() {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form method="POST" id="form"action="{% url 'filter' %}">
+          <form method="POST" id="form"action="{% url 'filter' %}"onsubmit='activate()'>
             {% csrf_token %}
             <div class="modal1"> 
             <div class="mb-3">
               
               <label for="myInput" class="col-form-label">Skills:</label>
-              <input type="text" class="form-control"id="myInput" onclick="myFunction()"placeholder='e.g Devops..'onkeyup="filterFunction()"autocomplete='off'row='5'>
+              <input type="text" class="form-control"id="myInput"name='myInput' onclick="myFunction()"placeholder='e.g Devops..'onkeyup="filterFunction()"autocomplete='off'row='5'>
              <div id="myDropdown" class="dropdown-content"onblur='remove()'tabindex="0">
              
              
@@ -308,7 +477,7 @@ function validateYELLOW() {
             </div>
             <div class="mb-3 ">
               <label for="lang" class="col-form-label">Language:</label>
-              <input type='text' class="form-control" onclick="myFunction1()" id="lang"placeholder='e.g.English,Hindi etc'></textarea>
+              <input type='text' class="form-control" onclick="myFunction1()" id="lang"name='lang'placeholder='e.g.English,Hindi etc'>
               <div id="myDropdown1" class="dropdown-content"onblur='remove1()'tabindex="0">
                 <a href="#" onclick='languages(this)'value='English'>English</a>
                 <a href="#"onclick='languages(this)'value='Hindi'>Hindi</a>
@@ -319,7 +488,7 @@ function validateYELLOW() {
             </div>
             <div class="mb-3">
               <label for="loc" class="col-form-label">Location:</label>
-              <input type='text' class="form-control" onclick="myFunction2()" id="loc"placeholder='e.g.Mumbai'></textarea>
+              <input type='text' class="form-control" onclick="myFunction2()" id="loc"name='loc'placeholder='e.g.Mumbai'></textarea>
               <div id="myDropdown2" class="dropdown-content"onblur='remove2()'tabindex="0">
                 <a href="#" onclick='locations(this)'value='Mumbai'>Mumbai</a>
                 <a href="#"onclick='locations(this)'value='Bangalore'>Bangalore</a>
@@ -344,10 +513,10 @@ function validateYELLOW() {
                 </div>
                 <div class="slidecontainer m-2"style='display:none'id='slider'>
                   <label for="from">From:</label>
-                  <input type="range" min="0" max="30" value="0" class="slider" id="myRange">
+                  <input type="range" min="0" max="30" value="0" class="slider" id="myRange"name='myRange'>
                   <p>Years: <span id="demo"></span></p>
                   <label for="from">To:</label>
-                  <input type="range" min="1" max="30" value="1" class="slider" id="myRange1">
+                  <input type="range" min="1" max="30" value="1" class="slider" id="myRange1"name='myRange1'>
                   <p>Years:<span id="demo1"></span></p>
                 </div>
                 
@@ -385,19 +554,21 @@ function validateYELLOW() {
               <li>
                 <label class="form-check-label" for="flexCheckDefault">
                 Location:</label>
-                <ul id="newloc">
-                  
+                <ul id="newloc"></ul></li>
+              <li><input type="text" id='mandatory' name='mandatory'hidden></li>
             </ul>  
-          </li>
+          
           </div>
         </div>
-        <p id="mandatory" name = 'mandatory_list'>     </p>
-        </form>
+        
+       
         <div class="modal-footer">
-          <!--<button type="button" class="btn btn-secondary" onclick = ''id = "next">Next</button>
-          <button type="button" class="btn btn-primary"onclick='validate()'>Search</button>-->
+          
+          <input class='btn btn primary'type="submit" value="apply"/>
 
         </div>
+        </form>
+        
       </div>
     </div>
   </div>

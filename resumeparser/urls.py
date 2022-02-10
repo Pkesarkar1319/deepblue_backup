@@ -38,6 +38,7 @@ urlpatterns = [
     path('editprofile/', include('home.urls')),
     path('resume/', include('home.urls')),
     path('demoupload/', include('home.urls')),
+    path('filter', include('home.urls')),
 
 
 ]

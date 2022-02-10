@@ -1,3 +1,4 @@
+from pyrsistent import v
 from home import mongodb
 from attrs import validators
 from django.contrib.auth import models
@@ -5,7 +6,7 @@ from django.shortcuts import render,HttpResponse
 from django.contrib import messages
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from pydantic import validate_arguments
+#from pydantic import validate_arguments
 from home.models import SignUp
 from django.core.mail import send_mail
 from django.conf import settings
@@ -26,6 +27,69 @@ from django.contrib.auth import login,logout,authenticate
 from resumeparser.settings import EMAIL_HOST_USER, EMAIL_USE_TLS
 # Create your views here.
 signup = SignUp.empAuth_objects
+
+def filter(request):
+    mandatory_filed=[]
+    optional_filed=[]
+    exp=[]
+    filterdata={}
+    if request.method=='POST':
+        skills=request.POST.get('myInput')
+        loc=request.POST.get('loc')
+        lang=request.POST.get('lang')
+        r1=int(request.POST.get('myRange'))
+        r2=int(request.POST.get('myRange1'))
+        check=request.POST.get('mandatory')
+        
+        s=skills.split(",")
+        l=loc.split(",")
+        la=lang.split(",")
+        c=check.split(",")
+        opt=list(set(s)-set(c))
+        exp.append(r1)
+        exp.append(r2)
+
+
+        mandatory_filed.append(c)
+        mandatory_filed.append(exp)
+
+        optional_filed.append(opt)
+        #optional_filed.append(l)
+        optional_filed.append(la)
+
+        
+
+        
+
+        
+
+        #print("*****Mandatory",mandatory_filed)
+       # print("*****optional",optional_filed)
+        mongodb.search(mandatory_filed,optional_filed)
+        partial=mongodb.partial_matched()
+        complete=mongodb.complete_matched()
+        notmatch=mongodb.not_matched()
+        #print("******partial***\n",partial)
+       # print("*****complete****\n",complete)
+        #print('*******not matched\n',notmatch)
+        print("partial len",len(partial))
+        print("complete len",len(complete))
+        print("notmatch len",len(notmatch))
+        
+        filterdata['complete']=complete
+        filterdata['partial']=partial
+        filterdata['notmatched']=notmatch
+    return render(request,'database.html',filterdata)
+        
+
+
+
+       
+       
+      
+
+
+    
 
 def mainpage(request):
     if request.method == 'POST':
@@ -57,10 +121,11 @@ def landingpage(request):
 def signup(request):
     return render(request, 'signup.html')
 def database(request):
-    skills=mongodb.get_skills()
-
-    print(skills)
-    return render(request,'database.html',{'skillset':json.dumps(skills)})
+    
+    context={}
+    context['skillset']=mongodb.get_skills()
+    
+    return render(request,'database.html',context)
     
     
     
@@ -76,22 +141,6 @@ def forgetpassword(request):
 
 
 
-def creatingOTP():
-    otp = ""
-    for i in range(4):
-        otp+= f'{random.randint(1,9)}'
-    return otp
-
-def sendEmail(email):
-    otp = creatingOTP()
-    send_mail(
-    'One Time Password',
-    f'Your OTP pin is {otp}',
-    settings.EMAIL_HOST_USER,
-    [email],
-    fail_silently=False,
-    )
-    return otp
 
 def registration(request):
     global em,na,pas,cont,rol,count,context

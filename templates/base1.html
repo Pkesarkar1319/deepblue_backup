@@ -444,11 +444,11 @@ document.getElementById("counter").innerHTML = "Output("+(count)+")" ;
    output1.innerHTML = this.value;
    
  }
+ 
    var exampleModal = document.getElementById('exampleModal')
- exampleModal.addEventListener('show.bs.modal', function (event) {
-  console.log({{skillset|safe}})
-  var temp={{skillset|safe}}
-  //console.log(typeof(temp))
+ exampleModal.addEventListener('show.bs.modal', function (event) {var temp={{skillset|safe}}
+  console.log(temp)
+
  for(let i=0;i<temp.length;i++)
  {
     var anchor =document.createElement('a')
@@ -654,15 +654,17 @@ function prep_modal()
               //document.body.append(checkbox.value + ' ');
             }
             mandatory1.push(mandatory)
-            mandatory1.push(experience)
-            document.getElementById("mandatory").innerHTML=mandatory1
+            //mandatory1.push(experience)
+            document.getElementById("mandatory").value=mandatory1
             
             optional = skill_list.filter(x => mandatory.indexOf(x) === -1);
             
             console.log(mandatory);
             console.log(mandatory1);
             console.log(optional);
-            window.open("{% url 'filter' %}")
+            //call green slider (completely matched)
+            
+           
           },)
     		}
 
