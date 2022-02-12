@@ -30,12 +30,7 @@
       
     }
     else
-    {   //var a
-      //var fs = require('fs');
-      //fs.rename(file.name, 'ignore');
-     
-      //c.push(b)
-      //var parent = document.getElementById("newparent_row1");
+    {   
       
 
       var parent = document.getElementById("newparent_row1");
@@ -46,41 +41,23 @@
        }
         if(count==0){
           
-         //row1.innerHTML = "Output("+(count-1)+")";
+         
 
          var statement = document.createElement('p');
          statement .setAttribute('class','pb-3 mb-0 small lh-sm border-bottom')
-         //row.class = "row justify-content-start m-3 bg-danger"
-         //row.id = "div"+i
-         //row.classList.add('rowstylered')
-         //console.log(row.id)
-         //row.classList.add('rowstylered')
+         
          document.getElementById("newparent_row").appendChild(statement);
          statement.innerHTML = ("Error uploading the above files from the folder"+" "+"("+folder_name1+")"+".");
         }
         
          var row = document.createElement('div');
          row .setAttribute('class','pb-3 mb-0 small lh-sm border-bottom')
-         //row.class = "row justify-content-start m-3 bg-danger"
-         //row.id = "div"+i
-         //row.classList.add('rowstylered')
-         //console.log(row.id)
+        
          row.classList.add('rowstylered')
          document.getElementById("newparent_row").appendChild(row);
          row.innerHTML = (file.name +" " +":"+" "+folder_name1+"  "+"("+(i+1)+")");
          count++;
-         //var row1 = document.createElement('div');
-         //row .setAttribute('class','border-bottom pb-2 mb-0')
-         //row.class = "row justify-content-start m-3 bg-danger"
-         //row.id = "div"+i
-         //row.classList.add('rowstylered')
-         //console.log(row.id)
-         //row.classList.add('rowstylered')
-         //document.getElementById("error").appendChild(row1);
-         //row1.innerHTML = "Output("+(count-1)+")";
-         //myRenamedFile = new File([file], "ignore."+extension);
-      //console.log(myRenamedFile.name,i)
-      //arr.forEach(file => arr.push(file.name));
+        
       
       
   }
@@ -89,8 +66,7 @@
   
 }
 document.getElementById("counter").innerHTML = "Output("+(count)+")" ;
-        //var row1 = document.createElement('div');
-         //row1.setAttribute('class','border-bottom pb-2 mb-0')
+       
          
   }
 

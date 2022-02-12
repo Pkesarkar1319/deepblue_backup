@@ -127,7 +127,7 @@ def mainpage(request):
                   return render(request, 'base1.html')
           else:
                 if(SignUp.empAuth_objects.all().filter(email=email,password=password,role="Candidate").exists()):   
-                  return render(request, 'main_page.html')
+                  return render(request, 'candidate.html')
                 
           
                 else:
@@ -193,7 +193,23 @@ def registration(request):
          
             return render(request, 'otp_verify.html',context)
 
+def candidate(request):
+    if request.method=="POST":
+        file=request.FILES.getlist('file')
 
+        
+        #_, file = request.FILES.popitem()  # get first element of the uploaded files
+        print(file)
+        #suff_list = ['pdf','doc','docx','html','txt']
+        #file = file[0]  # get the file from MultiValueDict
+        for f in file:
+            r= ResumeFile(file=f)
+            #if(ResumeFile.empAuth_objects1.all().filter(file.validate_arguments=email,password=password,role="Admin").exists()):
+            s = str(f)
+            if (s.endswith(('pdf','doc','docx','html','txt'))):
+                r.save()
+
+        return render(request,"database.html")
 
 def upload_resume(request):
     if request.method=="POST":

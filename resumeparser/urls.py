@@ -26,7 +26,7 @@ urlpatterns = [
     path('otp_verify/', include('home.urls')),
     path('reload/', include('home.urls')),
     path('userside/', include('home.urls')),
-    path('main_page/', include('home.urls')),
+    path('candidate/', include('home.urls')),
     path('landingpage/', include('home.urls')),
     path('forgetpassword', include('home.urls')),
     path('forget/', include('home.urls')),

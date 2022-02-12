@@ -1,20 +1,45 @@
 {% extends "database.html" %}
 <script>
   test2();
+  
 </script>
 {% block show%}
 {% if partial %}
 {% for i in partial %}
 <div class="row justify-content-start m-3  " style="border-left:4px solid yellow;border-radius:2.5px;">
   <div class="col-2   p-3">
-   <strong>CV2.pdf</strong><br>
-   <p style="color:grey;font-size:13px"><strong>Created on 24-11-21</strong></p>
+   <strong>{{i.Name}}</strong><br>
+   <p style="color:grey;font-size:13px"><strong>Created on {{i.time}}</strong></p>
   </div>
   <div class="col-2  p-3">
-  <a href="">Click to view</a>
+    
+  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=#{{i.Id}}>Click to view</button>
+  <div class="modal" id={{i.Id}}>
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          Name of the Candidate is {{i.Name}}
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
   </div>
-  <div class="col-4 p-3 ">
-    <div id="filtersummary" style="display: block;"><a style="background:lightgrey;border-radius:2px;color:black;size:50px;padding-left:3px;padding-right:3px;cursor:pointer" onclick="details()"><i style="size:5x" id="icon" class="fas fa-angle-down" aria-hidden="true"></i></a>&ensp;<strong> Searched Summary</strong></div>
+</div>
+  <div class="col-2 p-1 ">
+    <div id="filtersummary" style="display: block;"><a style="background:lightgrey;border-radius:2px;color:black;size:50px;padding-left:3px;padding-right:3px;cursor:pointer" ><i style="size:5x" id="icon" class="fas fa-angle-down" onclick="details(this)" aria-hidden="true"></i></a>&ensp;<strong> Searched Summary</strong></div>
     <div id="summary" style="display: block;">
       <ul id="summarylist">
        {% for j in i.matched_mandatory_skills%}
@@ -61,11 +86,3 @@
 
 
 {% endblock show %}
-
-
-
-
-
-
-
-

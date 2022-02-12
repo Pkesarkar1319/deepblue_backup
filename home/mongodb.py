@@ -27,6 +27,8 @@ def search(mandatory, optional):
       skillset=list(set(mandatory[0]) & set(i['skills']))
       optional_skills=list(set(optional[0]) & set(i['skills']))
       temp['Id'] = str(i['_id'])
+      temp['Name'] = i['name']
+      temp['time'] = str(i['Time'])
       temp['matched_mandatory_skills'] = skillset
       temp['matched_optional_skills'] = optional_skills
       lang=list(set(optional[1]) & set(i['languages']))
